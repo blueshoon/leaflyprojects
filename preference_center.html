@@ -1,0 +1,544 @@
+<!-- please commit any changes to https://github.com/Leafly-com/sailthru-templates before copying them here -->
+
+{title = "Leafly Email and Newsletter Preference Center"}
+<!-- prettier-ignore -->
+{survey_url = "https://forms.gle/UXjozq3UTR3VHYnz9"}
+<!-- prettier-ignore -->
+{fieldsets = {
+
+  "newsletters": {
+    "title": "Weekly emails",
+    "input_order": [".optout_basic", "vars[newsletter_unsubscribe]", "vars[newsletter_deals_unsubscribe]", "vars[newsletter_dedicated_unsubscribe]"],
+    "inputs": {
+      ".optout_basic": {
+        "title": "Opt out of all weekly emails",
+        "description": "You will not receive any current or future emails",
+        "off": ":disabled",
+        "on": "1",
+        "checked": profile.optout,
+        "group_opt_out": 1
+      },
+      "vars[newsletter_unsubscribe]": {
+        "title": "Leafly newsletter",
+        "description": "Our twice-weekly round up of the best content on Leafly.",
+        "off": "unsubscribe",
+        "on": "subscribe",
+        "checked": profile.vars.newsletter_unsubscribe != "unsubscribe"
+      },
+      "vars[newsletter_deals_unsubscribe]": {
+        "title": "Deals",
+        "description": "Local deals near you.",
+        "off": "unsubscribe",
+        "on": "subscribe",
+        "checked": profile.vars.newsletter_deals_unsubscribe != "unsubscribe"
+      },
+      "vars[newsletter_dedicated_unsubscribe]": {
+        "title": "Dedicated",
+        "description": "Limited-time online promotions.",
+        "off": "unsubscribe",
+        "on": "subscribe",
+        "checked": profile.vars.newsletter_dedicated_unsubscribe != "unsubscribe"
+      }
+    }
+  },
+  "notifications": {
+    "title": "Your bag and order notifications",
+    "input_order": ["vars[optional_notifications_unsubscribe]", "vars[leafly_reorder_unsubscribe]", "vars[leafly_abandoned_bag_unsubscribe]"],
+    "inputs": {
+      "vars[optional_notifications_unsubscribe]": {
+        "title": "Opt out of all bag and order notifications",
+        "description": "You will not receive any emails regarding product in your bag and your orders",
+        "off": "subscribe",
+        "on": "unsubscribe",
+        "checked": profile.vars.optional_notifications_unsubscribe == "unsubscribe",
+        "group_opt_out": 1
+      },
+      "vars[leafly_reorder_unsubscribe]": {
+        "title": "Reorder notification",
+        "description": "An easy way to restock items you&rsquo;ve previously ordered for pickup or delivery.",
+        "off": "1",
+        "on": "0",
+        "checked": profile.vars.leafly_reorder_unsubscribe != "1"
+      },
+      "vars[leafly_abandoned_bag_unsubscribe]": {
+        "title": "Shopping bag reminder",
+        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
+        "off": "1",
+        "on": "0",
+        "checked": profile.vars.leafly_abandoned_bag_unsubscribe != "1"
+      }
+    }
+  }
+}}
+
+{user_information = {
+  "location_information": {
+    "title": "Location Information",
+    "description": "Updating your location allows us to send you the best local deals, stores, and updates.",
+    "input_order": ["vars[postal_city]", "vars[postal_state]", "vars[postal_zipcode]", "vars[country]"],
+    "inputs": {
+      "vars[postal_city]": {
+        "title": "City",
+        "value": profile.vars.postal_city,
+        "type": "text"
+      },
+      "vars[postal_state]": {
+        "title": "State",
+        "value": profile.vars.postal_state,
+        "type": "text"
+      },
+      "vars[postal_zipcode]": {
+        "title": "Zipcode",
+        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
+        "value": profile.vars.postal_zipcode,
+        "type": "text"
+      },
+      "vars[country]": {
+        "title": "Country",
+        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
+        "value": profile.vars.country,
+        "type": "text"
+      }
+    }
+  },
+  "consumption": {
+    "title": "Consumption",
+    "description": "How do you usually consume cannabis?  Choose all that apply.",
+    "input_order": ["vars[interest_flower]", "vars[interest_edible]", "vars[interest_delta8]", "vars[interest_concentrate]", "vars[interest_vaping]", "vars[interest_cartridges]", "vars[interest_hempcbd]", "vars[interest_prerolls]"],
+    "inputs": {
+      "vars[interest_flower]": {
+        "title": "Flower",
+        "checked": profile.vars.interest_flower != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_edible]": {
+        "title": "Edibles",
+        "checked": profile.vars.interest_edible != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_delta8]": {
+        "title": "Delta-8",
+        "checked": profile.vars.interest_delta8 != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_concentrate]": {
+        "title": "Concentrates",
+        "checked": profile.vars.interest_concentrate != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_vaping]": {
+        "title": "Vaping",
+        "checked": profile.vars.interest_vaping != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_cartridges]": {
+        "title": "Cartridges",
+        "checked": profile.vars.interest_cartridges != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_hempcbd]": {
+        "title": "CBD",
+        "checked": profile.vars.interest_hempcbd != "1",
+        "type": "checkbox"
+      },
+      "vars[interest_prerolls]": {
+        "title": "Pre-rolls",
+        "checked": profile.vars.interest_prerolls != "1",
+        "type": "checkbox"
+      }         
+    }
+  }  
+}}
+
+
+<!DOCTYPE html>
+<html>
+  {include "hosted-page-head"}
+
+  <body class="pb-section">
+    <style>
+      .weed-mail {
+        width: 100px;
+        height: 156px;
+      }
+      .textbox{
+        border:  thin solid #AAAAAA;'
+        padding: 5px;
+      }
+      .subtext{
+        font-size: 11px;
+        margin-bottom: 10px;
+      }
+      @media (min-width: 768px) {
+        .weed-mail {
+          width: 225px;
+          height: 352px;
+        }
+      }
+    </style>
+
+    <main class="container">
+      <header>
+        <div class="my-lg">
+          <svg height="28" width="71">
+            <use href="#logo" xlink:href="#logo"></use>
+          </svg>
+        </div>
+
+        <div class="pt-section">
+          <h1 class="heading--xl text-default mb-sm">Your email preferences</h1>
+          <div class="text text-deep-green-60 font-bold">
+            {h(profile.email)}
+          </div>
+        </div>
+      </header>
+
+      <form method="post" data-autofill="true" id="form">
+        
+        <div id="userinformation" class="my-section">
+          {foreach user_information as id, user_info}
+            <div class="text font-bold mb-lg">
+              <div class="infosection">
+                {user_info.title}<br/>
+                <em class="subtext">{user_info.description}</em>
+              </div>
+
+              {foreach user_info.input_order as name} {input = user_info.inputs[name]}
+                {if input.type == "text"}
+                  <label for="{input.title}">{input.title}:</label>
+                  <input id="{input.title}" class="textbox" type="text" name="{name}" placeholder="{input.placeholder}" value="{input.value}">
+                {/if}
+                {if input.type == "checkbox"}
+                  <label class="checkbox__label mb-lg {if input.checked} pb-lg border-deep-green-alt border-b {/if}">
+                    <span class="checkbox__checkmark-container">
+                      <!-- prettier-ignore -->
+                      <input type="checkbox" class="checkbox__checkbox-input" {if input.checked} checked {/if}/>
+                      <span class="checkbox__checkmark">
+                        <svg height="20" width="20">
+                          <use href="#check" xlink:href="#check"></use>
+                        </svg>
+                      </span>
+                    </span>
+
+                    <div class="text-default ml-md">
+                      <strong data-title-for="{name}">{input.title}</strong>
+                    </div>
+                  </label>                  
+                {/if}
+              {/foreach}
+
+            </div>
+            <div class="border-deep-green-alt border-b">&nbsp;</div>
+          {/foreach}  
+        </div>
+
+        {foreach fieldsets as id, fieldset}
+        <div id="{id}" class="my-section">
+          <div class="text font-bold mb-lg">
+            {fieldset.title}
+          </div>
+
+          {foreach fieldset.input_order as name} {input = fieldset.inputs[name]}
+          <label
+            class="checkbox__label mb-lg {if input.group_opt_out} pb-lg border-deep-green-alt border-b {/if}"
+          >
+            <span class="checkbox__checkmark-container">
+              <!-- the value of this input is populated by sailthru on the server, and updated on the client using JS -->
+              <input type="hidden" name="{name}" />
+              <!-- prettier-ignore -->
+              <input
+                data-control="{name}"
+                data-off="{input.off}"
+                data-on="{input.on}"
+                {if input.group_opt_out}
+                  data-unsubscribe-members-of="{id}"
+                {else}
+                  data-group="{id}"
+                {/if}
+                type="checkbox"
+                class="checkbox__checkbox-input"
+                {if input.checked} checked {/if}
+              />
+              <span class="checkbox__checkmark">
+                <svg height="20" width="20">
+                  <use href="#check" xlink:href="#check"></use>
+                </svg>
+              </span>
+            </span>
+
+            <div class="text-default ml-md">
+              <strong data-title-for="{name}">{input.title}</strong>
+              <br />{input.description}
+            </div>
+          </label>
+          {/foreach}
+        </div>
+        {/foreach}
+
+        <div id="unsubscribe" class="my-section">
+          <div class="text font-bold mb-lg">
+            Unsubscribe all
+
+            <div class="text-sm text-default font-normal">
+              Check this box to unsubscribe from all emails.
+            </div>
+          </div>
+
+          <label class="checkbox__label mb-lg">
+            <span class="checkbox__checkmark-container">
+              <!--
+                This input functions only as a convenience to check the newsletter
+                and notification group opt-out inputs at the same time and intentionally
+                does not submit any value.
+              -->
+              <input
+                class="checkbox__checkbox-input"
+                data-opt-out
+                type="checkbox"
+              />
+
+              <span class="checkbox__checkmark">
+                <svg height="20" width="20">
+                  <use href="#check" xlink:href="#check"></use>
+                </svg>
+              </span>
+            </span>
+
+            <div class="text-default ml-md font-bold">
+              Unsubscribe from all
+            </div>
+          </label>
+        </div>
+
+        <div id="save" class="mt-section">
+          <button
+            class="button button--primary lowercase"
+            type="submit"
+            name="submit"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <div class="hidden" data-immediate-unsubscribe>
+      <div
+        class="fixed h-full w-full bg-white top-0 left-0 z-modal overflow-x-hidden overflow-y-auto scrolling-touch md:flex items-center"
+      >
+        <div class="absolute left-0 top-0 w-full py-xxl flex justify-center">
+          <svg height="60" width="153">
+            <use href="#logo" xlink:href="#logo"></use>
+          </svg>
+        </div>
+
+        <div class="container" style="padding: 130px 0;">
+          <div class="row">
+            <div class="md:col-1/2 flex justify-center">
+              <img
+                src="https://media.sailthru.com/4p9/1k4/6/p/5ef5278b27c05.png"
+                class="weed-mail mb-xl md:mb-0"
+              />
+            </div>
+
+            <div class="md:col-1/2 flex flex-col justify-center pt-xl">
+              <h1 class="heading--xl mb-xl">
+                You&rsquo;ve been removed from <span data-list-name></span> emails.
+              </h1>
+
+              <p class="text-default text-sm" style="margin-bottom: 80px">
+                To manage all of your preferences, 
+                <a
+                  data-dismiss-modal
+                  class="font-bold text-green underline cursor-pointer"
+                  >click here</a
+                >
+              </p>
+
+              <div class="mb-xxl">
+                <a
+                  href="{survey_url}"
+                  target="_blank"
+                  class="button lowercase button--primary rounded"
+                >
+                  Tell us why, please
+
+                  <svg
+                    class="inline-block ml-md"
+                    style="margin-top: -2px;"
+                    height="18"
+                    width="18"
+                  >
+                    <use href="#open_in_new" xlink:href="#open_in_new"></use>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(function () {
+        var $body = $("body");
+        var $form = $("form");
+        var $groupMembers = $("[data-group]");
+        var $groupMothers = $("[data-unsubscribe-members-of]");
+        var $inputControls = $("[data-control]");
+        var $modal = $("[data-immediate-unsubscribe]");
+        var $modalDismissButton = $("[data-dismiss-modal]");
+        var $modalNewsletterLabel = $("[data-list-name]");
+        var $optOut = $("[data-opt-out]");
+
+        updateOptOut();
+
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var immediateUnsubscribeVariable = params.get("immediate");
+
+          $modalDismissButton.attr("href", editUrl(params));
+
+          console.log(immediateUnsubscribeVariable);
+          if (immediateUnsubscribeVariable) {
+            immediateUnsubscribe(immediateUnsubscribeVariable);
+          }
+        } catch (e) {}
+
+        $groupMothers.on("change", function () {
+          updateGroupMembers($(this));
+          updateOptOut();
+        });
+
+        $groupMembers.on("change", function () {
+          updateMemberMother($(this));
+          updateOptOut();
+        });
+
+        $optOut.on("change", function () {
+          updateMothers();
+        });
+
+        $inputControls
+          .on("change", function () {
+            updateShadowControl($(this));
+          })
+          .each(function () {
+            updateShadowControl($(this));
+          });
+
+        function immediateUnsubscribe(variableName) {
+          var $input = $("[data-control='vars[" + variableName + "]'");
+          var $title = $("[data-title-for='vars[" + variableName + "]'");
+          var title = $title.text().toLowerCase().replace("leafly", "Leafly");
+
+          if ($input) {
+            toggleScrollLock(true);
+            toggleCheckbox($input, false);
+            $modal.removeClass("hidden");
+            $modalNewsletterLabel.text(title);
+
+            $.ajax({
+              data: $form.serialize(),
+              type: $form.attr("method"),
+              url: $form.attr("action"),
+            });
+          }
+        }
+
+        function updateGroupMembers($groupMother) {
+          var groupName = $groupMother.data("unsubscribe-members-of");
+          var $inputs = findGroupMembers(groupName);
+
+          if ($groupMother.prop("checked")) {
+            toggleCheckbox($inputs, false);
+          }
+        }
+
+        function updateMemberMother($groupMember) {
+          var groupName = $groupMember.data("group");
+
+          toggleCheckbox(
+            findGroupMother(groupName),
+            noneChecked(findGroupMembers(groupName))
+          );
+        }
+
+        function updateMothers() {
+          toggleCheckbox($groupMothers, $optOut.prop("checked"));
+          $groupMothers.each(function (i, el) {
+            updateGroupMembers($(el));
+          });
+        }
+
+        function updateOptOut() {
+          $optOut.prop("checked", allChecked($groupMothers));
+        }
+
+        function allChecked($elements) {
+          return $elements.toArray().every(function (el) {
+            return $(el).prop("checked");
+          });
+        }
+
+        function noneChecked($elements) {
+          return $elements.toArray().every(function (el) {
+            return !$(el).prop("checked");
+          });
+        }
+
+        function findGroupMembers(groupName) {
+          return $groupMembers.filter("[data-group='" + groupName + "']");
+        }
+
+        function findGroupMother(groupName) {
+          return $groupMothers.filter(
+            "[data-unsubscribe-members-of='" + groupName + "']"
+          );
+        }
+
+        function toggleCheckbox($inputs, checked) {
+          return $inputs.each(function () {
+            var $input = $(this);
+            $input.prop("checked", checked);
+            updateShadowControl($input);
+          });
+        }
+
+        function updateShadowControl($input) {
+          var inputName = $input.data("control");
+          var offValue = $input.data("off");
+          var checked = $input.prop("checked");
+          var value = checked ? $input.data("on") : offValue;
+          var $shadowInput = $("[name='" + inputName + "']");
+
+          $shadowInput
+            .attr("value", value)
+            .prop("disabled", !checked && offValue === ":disabled");
+        }
+
+        function toggleScrollLock(locked) {
+          $body.toggleClass("overflow-hidden fixed w-full h-full", locked);
+        }
+
+        function editUrl(params) {
+          params = new URLSearchParams(params);
+          params.delete("immediate");
+
+          return (
+            window.location.origin +
+            window.location.pathname +
+            "?" +
+            params.toString()
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
