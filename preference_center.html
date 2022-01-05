@@ -345,15 +345,29 @@
          margin: 2px 10px 0 0;     
          }
          .custom-control.custom-radio {
-         margin: 20px 0;
-         }      
+             margin: 20px 0;
+         }
          @media (min-width: 768px) {
          .weed-mail {
          width: 225px;
          height: 352px;
          }
+        .custom-control.custom-radio {
+             display: inline-block;
+             margin-right: 20px;
          }
-      </style>      
+         .checkboxdiv {
+             -webkit-column-count: 3;
+               -moz-column-count: 3;
+                    column-count: 3;
+         }
+         .checkbox__label {
+             -webkit-column-break-inside: avoid;
+               -moz-column-break-inside: avoid;
+                    break-inside: avoid;
+         }
+         }
+      </style>
    </head>
    <body class="pb-section">
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -379,6 +393,9 @@
                {user_info.title}<br/>
                <em class="subtext">{user_info.description}</em>
             </div>
+            {if id == "content" || id == "strain" || id == "consumption"}
+            <div class="checkboxdiv"><!-- open checkboxdiv -->
+            {/if}
             {foreach user_info.input_order as key, name} {input = user_info.inputs[name]}
             {if input.type == "text"}
             <label for="{input.title}">{input.title}:</label>
@@ -411,6 +428,9 @@
             </div>
             {/if}                
             {/foreach}
+            {if id == "content" || id == "strain" || id == "consumption"}
+            </div> <!-- close checkboxdiv -->
+            {/if}
          </div>
          <div class="border-deep-green-alt border-b pb-0">&nbsp;</div>
          {/foreach}  
