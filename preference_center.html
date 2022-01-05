@@ -1,4 +1,5 @@
 {title = "Leafly Email and Newsletter Preference Center"}
+{section_order = ["location_information","birthday","use","consumption","strain","content","profession"]}
 {user_information = {
 "location_information": {
 "title": "Location Information",
@@ -20,14 +21,12 @@
 "vars[postal_zipcode]": {
 "title": "Zipcode",
 "name": "postal_zipcode",
-"description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
 "value": profile.vars.postal_zipcode,
 "type": "text"
 },
 "vars[country]": {
 "title": "Country",
 "name": "country",
-"description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
 "value": profile.vars.country,
 "type": "text"
 }
@@ -393,7 +392,7 @@
       </header>
       <form method="post" data-autofill="true" id="form">
       <div id="userinformation" class="my-section">
-         {foreach user_information as id, user_info}
+         {foreach section_order as order} {id = order} {user_info = user_information[order]}
          <div class="text font-bold mt-lg">
             <div class="infosection">
                {user_info.title}<br/>
