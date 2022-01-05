@@ -1,544 +1,435 @@
-<!-- please commit any changes to https://github.com/Leafly-com/sailthru-templates before copying them here -->
-
 {title = "Leafly Email and Newsletter Preference Center"}
-<!-- prettier-ignore -->
-{survey_url = "https://forms.gle/UXjozq3UTR3VHYnz9"}
-<!-- prettier-ignore -->
-{fieldsets = {
-
-  "newsletters": {
-    "title": "Weekly emails",
-    "input_order": [".optout_basic", "vars[newsletter_unsubscribe]", "vars[newsletter_deals_unsubscribe]", "vars[newsletter_dedicated_unsubscribe]"],
-    "inputs": {
-      ".optout_basic": {
-        "title": "Opt out of all weekly emails",
-        "description": "You will not receive any current or future emails",
-        "off": ":disabled",
-        "on": "1",
-        "checked": profile.optout,
-        "group_opt_out": 1
-      },
-      "vars[newsletter_unsubscribe]": {
-        "title": "Leafly newsletter",
-        "description": "Our twice-weekly round up of the best content on Leafly.",
-        "off": "unsubscribe",
-        "on": "subscribe",
-        "checked": profile.vars.newsletter_unsubscribe != "unsubscribe"
-      },
-      "vars[newsletter_deals_unsubscribe]": {
-        "title": "Deals",
-        "description": "Local deals near you.",
-        "off": "unsubscribe",
-        "on": "subscribe",
-        "checked": profile.vars.newsletter_deals_unsubscribe != "unsubscribe"
-      },
-      "vars[newsletter_dedicated_unsubscribe]": {
-        "title": "Dedicated",
-        "description": "Limited-time online promotions.",
-        "off": "unsubscribe",
-        "on": "subscribe",
-        "checked": profile.vars.newsletter_dedicated_unsubscribe != "unsubscribe"
-      }
-    }
-  },
-  "notifications": {
-    "title": "Your bag and order notifications",
-    "input_order": ["vars[optional_notifications_unsubscribe]", "vars[leafly_reorder_unsubscribe]", "vars[leafly_abandoned_bag_unsubscribe]"],
-    "inputs": {
-      "vars[optional_notifications_unsubscribe]": {
-        "title": "Opt out of all bag and order notifications",
-        "description": "You will not receive any emails regarding product in your bag and your orders",
-        "off": "subscribe",
-        "on": "unsubscribe",
-        "checked": profile.vars.optional_notifications_unsubscribe == "unsubscribe",
-        "group_opt_out": 1
-      },
-      "vars[leafly_reorder_unsubscribe]": {
-        "title": "Reorder notification",
-        "description": "An easy way to restock items you&rsquo;ve previously ordered for pickup or delivery.",
-        "off": "1",
-        "on": "0",
-        "checked": profile.vars.leafly_reorder_unsubscribe != "1"
-      },
-      "vars[leafly_abandoned_bag_unsubscribe]": {
-        "title": "Shopping bag reminder",
-        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
-        "off": "1",
-        "on": "0",
-        "checked": profile.vars.leafly_abandoned_bag_unsubscribe != "1"
-      }
-    }
-  }
-}}
-
 {user_information = {
-  "location_information": {
-    "title": "Location Information",
-    "description": "Updating your location allows us to send you the best local deals, stores, and updates.",
-    "input_order": ["vars[postal_city]", "vars[postal_state]", "vars[postal_zipcode]", "vars[country]"],
-    "inputs": {
-      "vars[postal_city]": {
-        "title": "City",
-        "value": profile.vars.postal_city,
-        "type": "text"
-      },
-      "vars[postal_state]": {
-        "title": "State",
-        "value": profile.vars.postal_state,
-        "type": "text"
-      },
-      "vars[postal_zipcode]": {
-        "title": "Zipcode",
-        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
-        "value": profile.vars.postal_zipcode,
-        "type": "text"
-      },
-      "vars[country]": {
-        "title": "Country",
-        "description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
-        "value": profile.vars.country,
-        "type": "text"
-      }
-    }
-  },
-  "consumption": {
-    "title": "Consumption",
-    "description": "How do you usually consume cannabis?  Choose all that apply.",
-    "input_order": ["vars[interest_flower]", "vars[interest_edible]", "vars[interest_delta8]", "vars[interest_concentrate]", "vars[interest_vaping]", "vars[interest_cartridges]", "vars[interest_hempcbd]", "vars[interest_prerolls]"],
-    "inputs": {
-      "vars[interest_flower]": {
-        "title": "Flower",
-        "checked": profile.vars.interest_flower != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_edible]": {
-        "title": "Edibles",
-        "checked": profile.vars.interest_edible != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_delta8]": {
-        "title": "Delta-8",
-        "checked": profile.vars.interest_delta8 != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_concentrate]": {
-        "title": "Concentrates",
-        "checked": profile.vars.interest_concentrate != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_vaping]": {
-        "title": "Vaping",
-        "checked": profile.vars.interest_vaping != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_cartridges]": {
-        "title": "Cartridges",
-        "checked": profile.vars.interest_cartridges != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_hempcbd]": {
-        "title": "CBD",
-        "checked": profile.vars.interest_hempcbd != "1",
-        "type": "checkbox"
-      },
-      "vars[interest_prerolls]": {
-        "title": "Pre-rolls",
-        "checked": profile.vars.interest_prerolls != "1",
-        "type": "checkbox"
-      }         
-    }
-  }  
+"location_information": {
+"title": "Location Information",
+"description": "Updating your location allows us to send you the best local deals, stores, and updates.",
+"input_order": ["vars[postal_city]", "vars[postal_state]", "vars[postal_zipcode]", "vars[country]"],
+"inputs": {
+"vars[postal_city]": {
+"title": "City",
+"name": "postal_city",
+"value": profile.vars.postal_city,
+"type": "text"
+},
+"vars[postal_state]": {
+"title": "State",
+"name": "postal_state",
+"value": profile.vars.postal_state,
+"type": "text"
+},
+"vars[postal_zipcode]": {
+"title": "Zipcode",
+"name": "postal_zipcode",
+"description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
+"value": profile.vars.postal_zipcode,
+"type": "text"
+},
+"vars[country]": {
+"title": "Country",
+"name": "country",
+"description": "A friendly nudge when you&rsquo;ve got a bag of awesome stuff waiting to come home to you.",
+"value": profile.vars.country,
+"type": "text"
+}
+}
+},
+"consumption": {
+"title": "Consumption",
+"description": "How do you usually consume cannabis?  Choose all that apply.",
+"input_order": ["vars[interest_flower]", "vars[interest_edible]", "vars[interest_delta8]", "vars[interest_concentrate]", "vars[interest_vaping]", "vars[interest_cartridges]", "vars[interest_hempcbd]", "vars[interest_prerolls]"],
+"inputs": {
+"vars[interest_flower]": {
+"title": "Flower",
+"name": "interest_flower",
+"checked": profile.vars.interest_flower != "1",
+"type": "checkbox"
+},
+"vars[interest_edible]": {
+"title": "Edibles",
+"name": "interest_edible",
+"checked": profile.vars.interest_edible != "1",
+"type": "checkbox"
+},
+"vars[interest_delta8]": {
+"title": "Delta-8",
+"name": "interest_delta8",
+"checked": profile.vars.interest_delta8 != "1",
+"type": "checkbox"
+},
+"vars[interest_concentrate]": {
+"title": "Concentrates",
+"name": "interest_concentrate",
+"checked": profile.vars.interest_concentrate != "1",
+"type": "checkbox"
+},
+"vars[interest_vaping]": {
+"title": "Vaping",
+"name": "interest_vaping",
+"checked": profile.vars.interest_vaping != "1",
+"type": "checkbox"
+},
+"vars[interest_cartridges]": {
+"title": "Cartridges",
+"name": "interest_cartridges",
+"checked": profile.vars.interest_cartridges != "1",
+"type": "checkbox"
+},
+"vars[interest_hempcbd]": {
+"title": "CBD",
+"name": "interest_hempcbd",
+"checked": profile.vars.interest_hempcbd != "1",
+"type": "checkbox"
+},
+"vars[interest_prerolls]": {
+"title": "Pre-rolls",
+"name": "interest_prerolls",
+"checked": profile.vars.interest_prerolls != "1",
+"type": "checkbox"
+}         
+}
+},
+"strain": {
+"title": "Strains",
+"description": "What strains do you prefer?",
+"input_order": ["vars[interest_indica]", "vars[interest_sativa]", "vars[interest_hybrid]"],
+"inputs": {
+"vars[interest_indica]": {
+"title": "Indica",
+"name": "interest_indica",
+"type": "checkbox"
+},
+"vars[interest_sativa]": {
+"title": "Sativa",
+"name": "interest_sativa",
+"type": "checkbox"
+},
+"vars[interest_hybrid]": {
+"title": "Hybrid",
+"name": "interest_hybrid",
+"type": "checkbox"
+}      
+}
+},
+"use": {
+"title": "Use",
+"description": "When you purchase cannabis, do you usually use a medical card or do you usually purchase recreationally?",
+"input_order": ["vars[consumer_type_medical]", "vars[consumer_type_recreational]", "vars[consumer_type_both]"],
+"radio_name": "consumer_type",
+"inputs": {
+"vars[consumer_type_medical]": {
+"title": "Medical",
+"value": "medical",
+"type": "radio"
+},
+"vars[consumer_type_recreational]": {
+"title": "Recreational",
+"value": "recreational",
+"type": "radio"
+},
+"vars[consumer_type_both]": {
+"title": "Both",
+"value": "both",
+"type": "radio"
+}      
+}
+},
+"profession": {
+"title": "Profession",
+"description": "Do you work in the cannabis industry?",
+"input_order": ["vars[industry_type_budtender]", "vars[industry_type_grower]", "vars[industry_type_industry]"],
+"radio_name": "industry_type",
+"inputs": {
+"vars[industry_type_budtender]": {
+"title": "Budtender",
+"value": "budtender",
+"type": "radio"
+},
+"vars[industry_type_grower]": {
+"title": "Grower",
+"value": "grower",
+"type": "radio"
+},
+"vars[industry_type_industry]": {
+"title": "Industry",
+"value": "industry",
+"type": "radio"
+}      
+}
+},
+"content": {
+"title": "Content",
+"description": "What content would you like to receive?",
+"input_order": ["vars[interest_news]", "vars[interest_strains]", "vars[interest_dispensary]", "vars[interest_deals]", "vars[interest_news_learn]", "vars[interest_growing]", "vars[interest_news_cooking]", "vars[interest_news_learn_legalization]", "vars[interest_hempcbd]", "vars[interest_doctors]"],
+"inputs": {
+"vars[interest_news]": {
+"title": "Cannabis news updates",
+"value": "cannabis_news_updates",
+"name": "interest_news",
+"type": "checkbox"
+},
+"vars[interest_strains]": {
+"title": "Strains, terpenes, and effects",
+"value": "strains_terpenes_effects",
+"name": "interest_strains",
+"type": "checkbox"
+},
+"vars[interest_dispensary]": {
+"title": "Dispensary information",
+"value": "dispensary_information",
+"name": "interest_dispensary",
+"type": "checkbox"
+},
+"vars[interest_deals]": {
+"title": "Cannabis deals and promotions",
+"value": "cannabis_deals_and_promotions",
+"name": "interest_deals",
+"type": "checkbox"
+},
+"vars[interest_news_learn]": {
+"title": "Educational information",
+"value": "educational_information",
+"name": "interest_news_learn",
+"type": "checkbox"
+},
+"vars[interest_growing]": {
+"title": "Growing cannabis",
+"value": "growing_cannabis",
+"name": "interest_growing",
+"type": "checkbox"
+},
+"vars[interest_news_cooking]": {
+"title": "Cooking with cannabis",
+"value": "cooking_with_cannabis",
+"name": "interest_news_cooking",
+"type": "checkbox"
+},
+"vars[interest_news_learn_legalization]": {
+"title": "Legalization",
+"value": "legaization",
+"name": "interest_news_learn_legalization",
+"type": "checkbox"
+},
+"vars[interest_hempcbd]": {
+"title": "CBD",
+"value": "CBD",
+"name": "interest_hempcbd",
+"type": "checkbox"
+},
+"vars[interest_doctors]": {
+"title": "Doctors",
+"value": "doctors",
+"name": "interest_doctors",
+"type": "checkbox"
+}
+}
+},
+"birthday": {
+"title": "Birthday",
+"input_order": ["vars[birth_date]"],
+"inputs": {
+"vars[birth_date]": {
+"title": "Birthdate",
+"value": "birthdate",
+"type": "birthday"
+}     
+}
+}
 }}
-
-
 <!DOCTYPE html>
 <html>
-  {include "hosted-page-head"}
-
-  <body class="pb-section">
-    <style>
-      .weed-mail {
-        width: 100px;
-        height: 156px;
-      }
-      .textbox{
-        border:  thin solid #AAAAAA;'
-        padding: 5px;
-      }
-      .subtext{
-        font-size: 11px;
-        margin-bottom: 10px;
-      }
-      @media (min-width: 768px) {
-        .weed-mail {
-          width: 225px;
-          height: 352px;
-        }
-      }
-    </style>
-
-    <main class="container">
+   <head>
+      <meta charset="UTF-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+         />
+      <title>{title}</title>
+      <link
+         rel="stylesheet"
+         href="https://public.leafly.com/styles/core.5.7.0.css"
+         />
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         version="1.1"
+         width="0"
+         height="0"
+         display="none"
+         >
+         <symbol id="logo" viewBox="0 0 288.15 112.94">
+            <title>Leafly</title>
+            <path
+               d="M281.28 87.61c-4.1 0-7-3-7-7.28s2.87-7.28 7-7.28 6.87 3 6.87 7.28-2.77 7.28-6.87 7.28zM154.64 24.56l-.94 8.59c-3.24-6.47-10.31-9.82-18.71-9.82-16.07 0-28.81 12.73-28.81 32.14s12.36 32.14 28.19 32.14c9.77 0 16-4.58 19.16-10.11l1.11 8.88H166V24.56zM136 76.12c-10.5 0-18-8.64-18-20.9s7.34-20.9 18-20.9 17.58 8.51 17.58 20.9-7.13 20.9-17.58 20.9zM212.15 0v72.54s0 13.89 15.53 13.89h6.6v-11h-5.65c-2.59 0-4.14-2-4.14-7V0z"
+               class="cls-1"
+               />
+            <path
+               d="M288.15 24.56l-23.27 68.8c-3.58 11-9.75 19.58-22.89 19.58a21.31 21.31 0 0 1-14.85-6l5.2-9a14.81 14.81 0 0 0 9.16 3.59c5.19 0 9.15-4.46 11-9.9l1.73-5.2h-3.9l-21.65-61.87h13.73l16.1 49.65h.19l16.21-49.65zM44 75.43v11H0V0h12.36v75.43zM102 58.59H55.63c1 11 6.93 18.31 18.68 18.31 5.82 0 11.88-3 14.48-9H101c-3.09 13-15.19 19.79-26.84 19.79-19 0-30.81-12.86-30.81-32.41 0-18.81 12.87-31.92 29.82-31.92 15.42 0 28.75 9.49 28.83 31.28v3.95zm-12-9.53c-.22-8.16-6.28-15.46-16.43-15.46-9.16 0-15.59 6.06-17.44 15.46zM198.67 11H208V0h-13.5c-9.07 0-15 6.89-15 15.49v9.07h-9.37V35h9.37v51.43h12.4L192 35h15.4V24.56H192v-6.69c-.1-5.25 2.36-6.87 6.67-6.87z"
+               class="cls-1"
+               />
+         </symbol>
+         <symbol id="legal-logo" viewBox="0 0 261.2 112.9">
+            <title>Leafly ®</title>
+            <path
+               class="cls-1"
+               d="M245.5,90.9c-3.6,0-6.2-2.6-6.2-6.3s2.5-6.3,6.2-6.3c3.6,0,6,2.6,6,6.3S249,90.9,245.5,90.9z"
+               />
+            <path
+               class="cls-1"
+               d="M134.9,35.8l-0.8,7.5c-2.8-5.6-9-8.6-16.3-8.6c-14,0-25.2,11.1-25.2,28.1c0,16.9,10.8,28.1,24.7,28.1
+               c8.5,0,14-4,16.7-8.8l1,7.8h10V35.8H134.9z M118.6,80.9c-9.2,0-15.7-7.5-15.7-18.3c0-10.8,6.4-18.3,15.7-18.3
+               c9.2,0,15.3,7.4,15.3,18.3C133.9,73.3,127.7,80.9,118.6,80.9z"
+               />
+            <path
+               class="cls-1"
+               d="M185.1,14.3v63.4c0,0,0,12.1,13.5,12.1h5.8v-9.6h-5c-2.3,0-3.6-1.7-3.6-6.1V14.3H185.1z"
+               />
+            <path
+               class="cls-1"
+               d="M251.5,35.8l-20.3,60.1c-3.2,9.6-8.5,17-20,17c-6.7,0-11.4-3.6-13-5.3l4.5-7.9c1.7,1.5,4.5,3.2,8,3.2
+               c4.5,0,8-3.9,9.6-8.6l1.5-4.5h-3.4l-18.9-54h12l14,43.3h0.2L240,35.8H251.5z"
+               />
+            <path
+               class="cls-1"
+               d="M38.3,80.2v9.6H-0.2V14.3h10.8v65.8L38.3,80.2L38.3,80.2L38.3,80.2z"
+               />
+            <path
+               class="cls-1"
+               d="M88.9,65.5H48.5c0.9,9.6,6.1,16,16.3,16c5.1,0,10.3-2.6,12.6-7.9h10.7c-2.7,11.3-13.2,17.2-23.5,17.2
+               c-16.6,0-26.9-11.2-26.9-28.3c0-16.4,11.2-27.8,26-27.8c13.4,0,25.1,8.2,25.2,27.3C88.9,63.2,88.9,64.3,88.9,65.5z M78.5,57.2
+               C78.3,50,73,43.7,64.2,43.7c-8,0-13.6,5.3-15.2,13.5H78.5z"
+               />
+            <path
+               class="cls-1"
+               d="M173.3,24h8.2v-9.7h-11.8c-7.9,0-13.1,6-13.1,13.5v7.9h-8.2v9.1h8.2v45h10.8l0.1-45H181v-9.1h-13.4l-0.1-5.8
+               C167.4,25.4,169.6,24,173.3,24z"
+               />
+            <path
+               class="cls-1"
+               d="M257.5,0.9c1.1,0.6,2,1.5,2.6,2.5c0.7,1.2,1,2.4,1,3.8c0.1,1.4-0.4,2.7-1,3.8c-0.6,1.1-1.5,2-2.6,2.5
+               c-2.3,1.2-5,1.2-7.2,0c-1.1-0.6-2-1.5-2.6-2.5c-1.4-2.4-1.4-5.3,0-7.6c0.6-1.1,1.5-2,2.6-2.5c1.2-0.6,2.4-0.9,3.6-0.9
+               C255.2,0,256.5,0.3,257.5,0.9z M257.1,12.8c1-0.5,1.8-1.3,2.4-2.3c1.2-2.2,1.2-4.6,0-6.8c-0.5-1-1.4-1.7-2.4-2.3
+               c-2-1.1-4.4-1.1-6.3,0c-1,0.5-1.8,1.3-2.3,2.3c-0.6,1.1-0.9,2.3-0.9,3.4c-0.1,1.2,0.3,2.4,0.9,3.4c0.5,1,1.4,1.7,2.3,2.3
+               C252.7,13.9,255.2,13.9,257.1,12.8z M256.5,6.7c-0.4,0.5-0.7,0.7-1.3,0.8l1.9,3.4h-1.3L254,7.6h-1.5V11h-1.1V3.2h2.7
+               c0.7-0.1,1.5,0.2,2,0.5c0.5,0.5,0.7,1.1,0.7,1.6C256.9,5.9,256.7,6.4,256.5,6.7L256.5,6.7z M252.6,6.7h1.6c0.5,0.1,0.9-0.1,1.3-0.4
+               c0.3-0.3,0.5-0.6,0.5-1c0-0.9-0.5-1.4-1.5-1.4h-1.7L252.6,6.7L252.6,6.7z"
+               />
+         </symbol>
+         <symbol id="check" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+         </symbol>
+         <symbol id="open_in_new" viewBox="0 0 24 24">
+            <path
+               d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+         </symbol>
+      </svg>
+<style>
+         .weed-mail {
+         width: 100px;
+         height: 156px;
+         }
+         .textbox{
+         border:  thin solid #AAAAAA;'
+         padding: 5px;
+         }
+         .subtext{
+         font-size: 11px;
+         margin-bottom: 10px;
+         }
+         [type=radio]{
+         width: 20px!important;
+         height: 20px!important;
+         box-sizing: border-box;
+         padding: 0;
+         float: left;
+         width: auto;
+         margin: 2px 10px 0 0;     
+         }
+         .custom-control.custom-radio {
+         margin: 20px 0;
+         }      
+         @media (min-width: 768px) {
+         .weed-mail {
+         width: 225px;
+         height: 352px;
+         }
+         }
+      </style>      
+   </head>
+   <body class="pb-section">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <main class="container">
       <header>
-        <div class="my-lg">
-          <svg height="28" width="71">
-            <use href="#logo" xlink:href="#logo"></use>
-          </svg>
-        </div>
-
-        <div class="pt-section">
-          <h1 class="heading--xl text-default mb-sm">Your email preferences</h1>
-          <div class="text text-deep-green-60 font-bold">
-            {h(profile.email)}
-          </div>
-        </div>
+         <div class="my-lg">
+            <svg height="28" width="71">
+               <use href="#logo" xlink:href="#logo"></use>
+            </svg>
+         </div>
+         <div class="pt-section">
+            <h1 class="heading--xl text-default mb-sm">Your email preferences</h1>
+            <div class="text text-deep-green-60 font-bold">
+               {h(profile.email)}
+            </div>
+         </div>
       </header>
-
       <form method="post" data-autofill="true" id="form">
-        
-        <div id="userinformation" class="my-section">
-          {foreach user_information as id, user_info}
-            <div class="text font-bold mb-lg">
-              <div class="infosection">
-                {user_info.title}<br/>
-                <em class="subtext">{user_info.description}</em>
-              </div>
-
-              {foreach user_info.input_order as name} {input = user_info.inputs[name]}
-                {if input.type == "text"}
-                  <label for="{input.title}">{input.title}:</label>
-                  <input id="{input.title}" class="textbox" type="text" name="{name}" placeholder="{input.placeholder}" value="{input.value}">
-                {/if}
-                {if input.type == "checkbox"}
-                  <label class="checkbox__label mb-lg {if input.checked} pb-lg border-deep-green-alt border-b {/if}">
-                    <span class="checkbox__checkmark-container">
-                      <!-- prettier-ignore -->
-                      <input type="checkbox" class="checkbox__checkbox-input" {if input.checked} checked {/if}/>
-                      <span class="checkbox__checkmark">
-                        <svg height="20" width="20">
-                          <use href="#check" xlink:href="#check"></use>
-                        </svg>
-                      </span>
-                    </span>
-
-                    <div class="text-default ml-md">
-                      <strong data-title-for="{name}">{input.title}</strong>
-                    </div>
-                  </label>                  
-                {/if}
-              {/foreach}
-
+      <div id="userinformation" class="my-section">
+         {foreach user_information as id, user_info}
+         <div class="text font-bold mt-lg">
+            <div class="infosection">
+               {user_info.title}<br/>
+               <em class="subtext">{user_info.description}</em>
             </div>
-            <div class="border-deep-green-alt border-b">&nbsp;</div>
-          {/foreach}  
-        </div>
-
-        {foreach fieldsets as id, fieldset}
-        <div id="{id}" class="my-section">
-          <div class="text font-bold mb-lg">
-            {fieldset.title}
-          </div>
-
-          {foreach fieldset.input_order as name} {input = fieldset.inputs[name]}
-          <label
-            class="checkbox__label mb-lg {if input.group_opt_out} pb-lg border-deep-green-alt border-b {/if}"
-          >
-            <span class="checkbox__checkmark-container">
-              <!-- the value of this input is populated by sailthru on the server, and updated on the client using JS -->
-              <input type="hidden" name="{name}" />
-              <!-- prettier-ignore -->
-              <input
-                data-control="{name}"
-                data-off="{input.off}"
-                data-on="{input.on}"
-                {if input.group_opt_out}
-                  data-unsubscribe-members-of="{id}"
-                {else}
-                  data-group="{id}"
-                {/if}
-                type="checkbox"
-                class="checkbox__checkbox-input"
-                {if input.checked} checked {/if}
-              />
-              <span class="checkbox__checkmark">
-                <svg height="20" width="20">
-                  <use href="#check" xlink:href="#check"></use>
-                </svg>
-              </span>
-            </span>
-
-            <div class="text-default ml-md">
-              <strong data-title-for="{name}">{input.title}</strong>
-              <br />{input.description}
+            {foreach user_info.input_order as key, name} {input = user_info.inputs[name]}
+            {if input.type == "text"}
+            <label for="{input.title}">{input.title}:</label>
+            <input id="{input.title}" class="textbox" type="text" name="{name}" placeholder="{input.placeholder}" value="{input.value}">
+            {/if}
+            {if input.type == "checkbox"}
+            <label class="checkbox__label mb-lg {if input.checked} pb-lg {/if}">
+               <span class="checkbox__checkmark-container">
+                  <input type="checkbox" class="checkbox__checkbox-input" name="{name}" value="true" {if vars[input.name] == true} checked {/if}/>
+                  <span class="checkbox__checkmark">
+                     <svg height="20" width="20">
+                        <use href="#check" xlink:href="#check"></use>
+                     </svg>
+                  </span>
+               </span>
+               <div class="text-default ml-md">
+                  <strong data-title-for="{name}">{input.title}</strong>
+               </div>
+            </label>
+            {/if}
+            {if input.type == "radio"}
+            <div class="custom-control custom-radio">
+               <input type="radio" class="custom-control-input" id="defaultChecked" name="{user_info.radio_name}" value="{input.value}" {if vars[industry_type] == input.value} checked {/if} />
+               <label class="radio__label custom-control-label" for="defaultChecked">{input.title}</label>
             </div>
-          </label>
-          {/foreach}
-        </div>
-        {/foreach}
-
-        <div id="unsubscribe" class="my-section">
-          <div class="text font-bold mb-lg">
-            Unsubscribe all
-
-            <div class="text-sm text-default font-normal">
-              Check this box to unsubscribe from all emails.
+            {/if}
+            {if input.type == "birthday"}
+            <div class="custom-control">
+               <input type="text" id="datepicker" name="vars[birth_date]" value="{vars.birth_date}">
             </div>
-          </div>
-
-          <label class="checkbox__label mb-lg">
-            <span class="checkbox__checkmark-container">
-              <!--
-                This input functions only as a convenience to check the newsletter
-                and notification group opt-out inputs at the same time and intentionally
-                does not submit any value.
-              -->
-              <input
-                class="checkbox__checkbox-input"
-                data-opt-out
-                type="checkbox"
-              />
-
-              <span class="checkbox__checkmark">
-                <svg height="20" width="20">
-                  <use href="#check" xlink:href="#check"></use>
-                </svg>
-              </span>
-            </span>
-
-            <div class="text-default ml-md font-bold">
-              Unsubscribe from all
-            </div>
-          </label>
-        </div>
-
-        <div id="save" class="mt-section">
-          <button
-            class="button button--primary lowercase"
-            type="submit"
-            name="submit"
-          >
-            Save
-          </button>
-        </div>
-      </form>
-    </main>
-
-    <div class="hidden" data-immediate-unsubscribe>
-      <div
-        class="fixed h-full w-full bg-white top-0 left-0 z-modal overflow-x-hidden overflow-y-auto scrolling-touch md:flex items-center"
-      >
-        <div class="absolute left-0 top-0 w-full py-xxl flex justify-center">
-          <svg height="60" width="153">
-            <use href="#logo" xlink:href="#logo"></use>
-          </svg>
-        </div>
-
-        <div class="container" style="padding: 130px 0;">
-          <div class="row">
-            <div class="md:col-1/2 flex justify-center">
-              <img
-                src="https://media.sailthru.com/4p9/1k4/6/p/5ef5278b27c05.png"
-                class="weed-mail mb-xl md:mb-0"
-              />
-            </div>
-
-            <div class="md:col-1/2 flex flex-col justify-center pt-xl">
-              <h1 class="heading--xl mb-xl">
-                You&rsquo;ve been removed from <span data-list-name></span> emails.
-              </h1>
-
-              <p class="text-default text-sm" style="margin-bottom: 80px">
-                To manage all of your preferences, 
-                <a
-                  data-dismiss-modal
-                  class="font-bold text-green underline cursor-pointer"
-                  >click here</a
-                >
-              </p>
-
-              <div class="mb-xxl">
-                <a
-                  href="{survey_url}"
-                  target="_blank"
-                  class="button lowercase button--primary rounded"
-                >
-                  Tell us why, please
-
-                  <svg
-                    class="inline-block ml-md"
-                    style="margin-top: -2px;"
-                    height="18"
-                    width="18"
-                  >
-                    <use href="#open_in_new" xlink:href="#open_in_new"></use>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+            {/if}                
+            {/foreach}
+         </div>
+         <div class="border-deep-green-alt border-b pb-0">&nbsp;</div>
+         {/foreach}  
       </div>
-    </div>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-
-    <script>
-      $(function () {
-        var $body = $("body");
-        var $form = $("form");
-        var $groupMembers = $("[data-group]");
-        var $groupMothers = $("[data-unsubscribe-members-of]");
-        var $inputControls = $("[data-control]");
-        var $modal = $("[data-immediate-unsubscribe]");
-        var $modalDismissButton = $("[data-dismiss-modal]");
-        var $modalNewsletterLabel = $("[data-list-name]");
-        var $optOut = $("[data-opt-out]");
-
-        updateOptOut();
-
-        try {
-          var params = new URLSearchParams(window.location.search);
-          var immediateUnsubscribeVariable = params.get("immediate");
-
-          $modalDismissButton.attr("href", editUrl(params));
-
-          console.log(immediateUnsubscribeVariable);
-          if (immediateUnsubscribeVariable) {
-            immediateUnsubscribe(immediateUnsubscribeVariable);
-          }
-        } catch (e) {}
-
-        $groupMothers.on("change", function () {
-          updateGroupMembers($(this));
-          updateOptOut();
-        });
-
-        $groupMembers.on("change", function () {
-          updateMemberMother($(this));
-          updateOptOut();
-        });
-
-        $optOut.on("change", function () {
-          updateMothers();
-        });
-
-        $inputControls
-          .on("change", function () {
-            updateShadowControl($(this));
-          })
-          .each(function () {
-            updateShadowControl($(this));
+     <div id="save" class="mt-section">
+       <button class="button button--primary lowercase" type="submit" name="submit">Save</button>
+     </div>      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
+      <script>
+        $( function() {
+          $( "#datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:2021",
+            dateFormat: "yy-mm-dd",
+            defaultDate: '2021-01-01'
           });
-
-        function immediateUnsubscribe(variableName) {
-          var $input = $("[data-control='vars[" + variableName + "]'");
-          var $title = $("[data-title-for='vars[" + variableName + "]'");
-          var title = $title.text().toLowerCase().replace("leafly", "Leafly");
-
-          if ($input) {
-            toggleScrollLock(true);
-            toggleCheckbox($input, false);
-            $modal.removeClass("hidden");
-            $modalNewsletterLabel.text(title);
-
-            $.ajax({
-              data: $form.serialize(),
-              type: $form.attr("method"),
-              url: $form.attr("action"),
-            });
-          }
-        }
-
-        function updateGroupMembers($groupMother) {
-          var groupName = $groupMother.data("unsubscribe-members-of");
-          var $inputs = findGroupMembers(groupName);
-
-          if ($groupMother.prop("checked")) {
-            toggleCheckbox($inputs, false);
-          }
-        }
-
-        function updateMemberMother($groupMember) {
-          var groupName = $groupMember.data("group");
-
-          toggleCheckbox(
-            findGroupMother(groupName),
-            noneChecked(findGroupMembers(groupName))
-          );
-        }
-
-        function updateMothers() {
-          toggleCheckbox($groupMothers, $optOut.prop("checked"));
-          $groupMothers.each(function (i, el) {
-            updateGroupMembers($(el));
-          });
-        }
-
-        function updateOptOut() {
-          $optOut.prop("checked", allChecked($groupMothers));
-        }
-
-        function allChecked($elements) {
-          return $elements.toArray().every(function (el) {
-            return $(el).prop("checked");
-          });
-        }
-
-        function noneChecked($elements) {
-          return $elements.toArray().every(function (el) {
-            return !$(el).prop("checked");
-          });
-        }
-
-        function findGroupMembers(groupName) {
-          return $groupMembers.filter("[data-group='" + groupName + "']");
-        }
-
-        function findGroupMother(groupName) {
-          return $groupMothers.filter(
-            "[data-unsubscribe-members-of='" + groupName + "']"
-          );
-        }
-
-        function toggleCheckbox($inputs, checked) {
-          return $inputs.each(function () {
-            var $input = $(this);
-            $input.prop("checked", checked);
-            updateShadowControl($input);
-          });
-        }
-
-        function updateShadowControl($input) {
-          var inputName = $input.data("control");
-          var offValue = $input.data("off");
-          var checked = $input.prop("checked");
-          var value = checked ? $input.data("on") : offValue;
-          var $shadowInput = $("[name='" + inputName + "']");
-
-          $shadowInput
-            .attr("value", value)
-            .prop("disabled", !checked && offValue === ":disabled");
-        }
-
-        function toggleScrollLock(locked) {
-          $body.toggleClass("overflow-hidden fixed w-full h-full", locked);
-        }
-
-        function editUrl(params) {
-          params = new URLSearchParams(params);
-          params.delete("immediate");
-
-          return (
-            window.location.origin +
-            window.location.pathname +
-            "?" +
-            params.toString()
-          );
-        }
-      });
-    </script>
-  </body>
+        } );     
+      </script>
+   </body>
 </html>
